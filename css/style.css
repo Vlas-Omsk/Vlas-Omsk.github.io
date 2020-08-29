@@ -1,0 +1,222 @@
+* {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    vertical-align: baseline;
+}
+
+body {
+    min-width: 1152px;
+}
+
+
+.header_background {
+    background: linear-gradient(to bottom, #4567dc, #7289da);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    height: 410px;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.header_background_images {
+    position: absolute;
+    opacity: 0.5;
+    height: 410px;
+    pointer-events: none;
+}
+
+.header_background_images_container {
+    position: absolute;
+    width: 100%;
+    height: 410px;
+    overflow: hidden;
+}
+
+.header_buttons_container {
+    position: relative;
+    width: 1152px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.header_buttons_container ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 80px;
+}
+
+.header_buttons_container ul li {
+    list-style: none;
+    font-size: 14px;
+}
+
+.header_container {
+    position: relative;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.header_container ul {
+    
+}
+
+.header_container ul li {
+    list-style: none;
+    text-align: center;
+}
+
+
+.footer_background {
+    background-color: #23272a;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    padding-top: 80px;
+    padding-bottom: 64px;
+    color: white;
+}
+
+.footer_container {
+    position: relative;
+    width: 800px;
+    margin: 0 auto;
+}
+
+
+.button_style1 {
+    text-decoration: none;
+    background: black;
+    background: rgba(0, 0, 0, 0.00);
+    color: white;
+    padding: 10px 20px;
+    transition: .4s !important;
+    cursor: pointer;
+}
+
+.button_style1:hover {
+    background: rgba(0, 0, 0, 0.10);
+}
+
+
+.button_style_white {
+    text-decoration: none;
+    background: white;
+    background: #ffffff;
+    color: black;
+    padding: 12px 32px;
+    transition: .4s !important;
+    cursor: pointer;
+    border-radius: 28px;
+    font-size: 20px;
+    box-shadow: 0 0 0px rgba(0,0,0,0);
+}
+
+.button_style_white:hover {
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    color: #7289da;
+}
+
+.grid {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.grid .container {
+    max-width: 1260px;
+    padding: 120px 40px;
+    box-sizing: border-box;
+    display: grid;
+    align-items: center;
+    transition: opacity .6s .1s,transform .6s ease,-webkit-transform .6s ease;
+    grid-template-columns: repeat(12,1fr);
+    gap: 0 20px;
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+.grid .container .leftImage {
+    grid-column: span 7;
+    height: 440px;
+    margin: auto;
+}
+
+.grid .container .rightImage {
+    grid-column: 6/span 7;
+    height: 440px;
+    margin: auto;
+}
+
+.grid .container .rightDiscription {
+    grid-column: 9/span 4;
+}
+
+.grid .container .leftDiscription {
+    grid-column: span 4;
+    grid-row: 1;
+}
+
+.grid .container .discription h2 {
+    font-size: 48px;
+    line-height: 120%;
+    font-weight: 700;
+}
+
+.grid .container .discription .subTitle {
+    margin-top: 24px;
+    font-size: 20px;
+    line-height: 32px;
+}
+
+.grid .visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.animate {
+
+}
+
+.cloud1 {
+    animation: cloudDividerAnimation1 200s linear infinite alternate;
+}
+
+@-webkit-keyframes cloudDividerAnimation1 {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: 50%;
+    }
+
+    to {
+        left: 100%;
+    }
+}
+
+.wave1 {
+    color: #f6f6f6;
+    animation: waveDividerAnimation1 20s linear infinite alternate;
+}
+
+.rotate180 {
+    transform: matrix(1,0,0,-1,0,0);
+}
+
+@-webkit-keyframes waveDividerAnimation1 {
+    0% {
+        d: path("M826.337463,25.5396311 C670.970254,58.655965 603.696181,68.7870267 447.802481,35.1443383 C293.342778,1.81111414 137.33377,1.81111414 0,1.81111414 L0,150 L1920,150 L1920,1.81111414 C1739.53523,-16.6853983 1679.86404,73.1607868 1389.7826,37.4859505 C1099.70117,1.81111414 981.704672,-7.57670281 826.337463,25.5396311 Z")
+    }
+
+    50% {
+        d: path("M655.558582,28.4898877 C500.191373,61.6062216 422.833785,83.5422763 266.940085,49.8995879 C112.480383,16.5663637 84.0992497,8.02840272 0,44.7243294 L0,150.727527 L1920,150.727527 L1920,49.8995879 C1580.91676,-34.8808285 1438.10804,73.6768193 1148.0266,38.0019829 C857.945166,2.32714659 810.925791,-4.62644617 655.558582,28.4898877 Z")
+    }
+
+    to {
+        d: path("M842.322034,38.0019829 C686.954825,71.1183168 623.386282,53.08497 467.492582,19.4422816 C313.032879,-13.8909426 84.0992497,8.02840272 0,44.7243294 L0,150.727527 L1920,150.727527 L1920,76.8685643 C1512.23604,-35.3595639 1568.70222,67.4289432 1278.62078,31.7541069 C988.539347,-3.92072949 997.689243,4.88564905 842.322034,38.0019829 Z")
+    }
+}
