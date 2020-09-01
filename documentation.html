@@ -1,0 +1,48 @@
+<html>
+	<head id="frameshead">
+		<title>Discord Status</title>
+		
+		<link rel="stylesheet" href="css/style.css" />
+		
+		<style>
+			iframe {
+				position: absolute;
+				height: 100%;
+				border: none;
+			}
+		</style>
+		
+		<script>
+			function PageExists(page)
+			{
+				/*
+				const pages = [
+					"how_to_use_pictures"
+				];
+				return pages.includes(page);
+				*/
+				var http = new XMLHttpRequest();
+				http.open('HEAD', 'documentation/frames/' + page + '.html', false);
+				http.send();
+				return http.status!=404;
+			}
+			
+			function loadFrameBody() {
+				var hash = window.location.hash.substring(1);
+				if (hash && PageExists(hash)) {
+					document.getElementById('framemenu').src = 'documentation/menu.html#' + hash;
+					document.getElementById('framebody').src = 'documentation/frames/' + hash + '.html';
+				}
+			}
+			
+			document.addEventListener("DOMContentLoaded", loadFrameBody);
+			window.onhashchange = loadFrameBody;
+		</script>
+	</head>
+	<body>
+		<iframe src="documentation/menu.html" id="framemenu" width="350px">
+		</iframe>
+		<iframe src="documentation/frames/default.html" id="framebody" style="width: calc(100% - 350px); left: 350px;">
+		</iframe>
+	</body>
+</html>

@@ -1,0 +1,65 @@
+body {
+	min-width: auto;
+    background-color: #2f3136;
+}
+
+.select_container {
+	margin-top: 24px;
+	text-align: left;
+	overflow-x: hidden;
+    overflow-y: hidden;
+	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.select {
+	position: relative;
+	padding: 5px 10px;
+	margin-bottom: 2px;
+	width: 260px;
+	height: 20px;
+}
+
+.select .background {
+	top: 0px;
+	left: 0px;
+	width: calc(100%);
+	height: calc(100%);
+	background-color: rgba(0,0,0,0);
+	border-radius: 3px;
+	position: absolute;
+	pointer-events: none;
+	z-index: -1;
+	
+	transition: all 0.125s;
+}
+
+.select input[type=radio] {
+	display: none;
+}
+
+.select label{
+	user-select: none;
+	text-decoration: none;
+	cursor: pointer;
+	color: #b9bbbe;
+	font-size: 16px;
+	line-height: 20px;
+	
+	transition: all 0.125s;
+}
+
+.select input[type=radio]:checked + label{
+	color: #ffffff;
+}
+
+.select input[type=radio]:checked + label .background{
+	background-color: #7289da;
+}
+
+.select input[type=radio]:hover + label{
+	color: #ffffff;
+}

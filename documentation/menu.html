@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>Discord Status</title>
+		
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/documentation_menu.css" />
+		
+		<script>
+			function PageExists(page)
+			{
+				var http = new XMLHttpRequest();
+				http.open('HEAD', 'frames/' + page + '.html', false);
+				http.send();
+				return http.status!=404;
+			}
+		
+			function setBodyUrl(url) {
+				top.window.location.href = '../documentation.html#' + url;
+			}
+			
+			function checkItem() {
+				var hash = window.location.hash.substring(1);
+				if (hash && PageExists(hash)) {
+					document.getElementById(hash).checked = true;
+				}
+			}
+			
+			document.addEventListener("DOMContentLoaded", checkItem);
+			window.onhashchange = checkItem;
+		</script>
+	</head>
+	<body>
+		<div>
+			<li style="margin-right: auto;" onclick="top.window.location.href = '/';">
+				<div class="button_style1" style="height: 40px; display: flex; align-items: center;">
+					<img style="height: 40px; margin-right: 10px" src="../images/logo_small.png" />
+					<a>Discord Status</a>
+				</div>
+			</li>
+		</div>
+		<div class="select_container">
+			<div class="select">
+				<input type="radio" id="how_to_use_pictures" onchange="if (this.checked) setBodyUrl('how_to_use_pictures');">
+				<label for="how_to_use_pictures">Как использовать картинки?
+					<div class="background"></div></label>
+			</div>
+		</div>
+	<body>
+</html>
