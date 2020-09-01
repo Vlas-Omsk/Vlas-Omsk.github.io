@@ -2,7 +2,7 @@ function PageExists(page)
 {
 	try {
 		var http = new XMLHttpRequest();
-		http.open('HEAD', 'frames/' + page + '.html', false);
+		http.open('HEAD', 'documentation/frames/' + page + '.html', false);
 		http.send();
 		return http.status!=404;
 	} catch {
