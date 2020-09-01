@@ -1,4 +1,40 @@
 body {
 	min-width: auto;
-    background-color: #202225;
+    background-color: #36393f;
+	padding: 40px;
+	color: #fff;
+}
+
+h1 {
+	font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.list {
+	margin: 0 0 12px;
+	line-height: 24px;
+	list-style: none;
+}
+
+.list li {
+	font-size: 16px;
+	color: #dcddde;
+	margin: 8px 0 0 20px;
+	list-style-type: disc;
+	list-style-position: inside;
+}
+
+a {
+	text-decoration: none;
+	color: #00b0f4;
+	text-decoration-color: #00b0f4;
+	cursor: pointer;
+	transition: color .1s, text-decoration .1s;
+}
+
+a:hover {
+	color: #33c0f6;
+	text-decoration: underline;
+	text-decoration-color: #00b0f4;
 }

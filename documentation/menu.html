@@ -5,17 +5,11 @@
 		<link rel="stylesheet" href="../css/style.css" />
 		<link rel="stylesheet" href="../css/documentation_menu.css" />
 		
-		<script>
-			function PageExists(page)
-			{
-				var http = new XMLHttpRequest();
-				http.open('HEAD', 'frames/' + page + '.html', false);
-				http.send();
-				return http.status!=404;
-			}
+		<script src="../js/pages.js"></script>
 		
-			function setBodyUrl(url) {
-				top.window.location.href = '../documentation.html#' + url;
+		<script>
+			function setBodyUrl(self) {
+				top.window.location.href = '../documentation.html#' + self.id;
 			}
 			
 			function checkItem() {
@@ -31,7 +25,7 @@
 	</head>
 	<body>
 		<div>
-			<li style="margin-right: auto;" onclick="top.window.location.href = '/';">
+			<li style="margin-right: auto;" onclick="OpenRoot()">
 				<div class="button_style1" style="height: 40px; display: flex; align-items: center;">
 					<img style="height: 40px; margin-right: 10px" src="../images/logo_small.png" />
 					<a>Discord Status</a>
@@ -40,7 +34,12 @@
 		</div>
 		<div class="select_container">
 			<div class="select">
-				<input type="radio" id="how_to_use_pictures" onchange="if (this.checked) setBodyUrl('how_to_use_pictures');">
+				<input type="radio" name="pages" id="default" onchange="if (this.checked) setBodyUrl(this);" checked>
+				<label for="default">Главная
+					<div class="background"></div></label>
+			</div>
+			<div class="select">
+				<input type="radio" name="pages" id="how_to_use_pictures" onchange="if (this.checked) setBodyUrl(this);">
 				<label for="how_to_use_pictures">Как использовать картинки?
 					<div class="background"></div></label>
 			</div>

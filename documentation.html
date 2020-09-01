@@ -4,6 +4,8 @@
 		
 		<link rel="stylesheet" href="css/style.css" />
 		
+		<script src="js/pages.js"></script>
+		
 		<style>
 			iframe {
 				position: absolute;
@@ -13,20 +15,6 @@
 		</style>
 		
 		<script>
-			function PageExists(page)
-			{
-				/*
-				const pages = [
-					"how_to_use_pictures"
-				];
-				return pages.includes(page);
-				*/
-				var http = new XMLHttpRequest();
-				http.open('HEAD', 'documentation/frames/' + page + '.html', false);
-				http.send();
-				return http.status!=404;
-			}
-			
 			function loadFrameBody() {
 				var hash = window.location.hash.substring(1);
 				if (hash && PageExists(hash)) {
@@ -40,9 +28,9 @@
 		</script>
 	</head>
 	<body>
-		<iframe src="documentation/menu.html" id="framemenu" width="350px">
+		<iframe src="documentation/menu.html" id="framemenu" style="width: 350px; background-color: #2f3136;">
 		</iframe>
-		<iframe src="documentation/frames/default.html" id="framebody" style="width: calc(100% - 350px); left: 350px;">
+		<iframe src="documentation/frames/default.html" id="framebody" style="width: calc(100% - 350px); left: 350px; background-color: #36393f;">
 		</iframe>
 	</body>
 </html>
