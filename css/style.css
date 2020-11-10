@@ -102,7 +102,6 @@ body {
 .button_style_white {
     text-decoration: none;
     background: white;
-    background: #ffffff;
     color: black;
     padding: 12px 32px;
     transition: .4s !important;
@@ -112,9 +111,25 @@ body {
     box-shadow: 0 0 0px rgba(0,0,0,0);
 }
 
-.button_style_white:hover {
+.button_style_black {
+    text-decoration: none;
+    background: black;
+    color: white;
+    padding: 12px 32px;
+    transition: .4s !important;
+    cursor: pointer;
+    border-radius: 28px;
+    font-size: 20px;
+    box-shadow: 0 0 0px rgba(0,0,0,0);
+}
+
+.button_style_white:hover, .button_style_black:hover {
     box-shadow: 0 8px 15px rgba(0,0,0,.2);
     color: #7289da;
+}
+
+.button_style_black:hover {
+	color: lightsteelblue;
 }
 
 .grid {
