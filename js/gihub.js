@@ -36,6 +36,9 @@ $(window).on("load", function() {
 
             $.get(`https://raw.githubusercontent.com/${item.full_name}/${item.default_branch}/website-config.json`
                   /*'data:application/json;utf-8,{"show":false,"home_url":"$default","title":"$default","content_html":"$default","image_url":"$default"}'*/, function(data) {
+                
+                data = JSON.parse(data);
+                console.log(data);
 
                 show = data.show == null ? true : data.show;
                 if (show) {
