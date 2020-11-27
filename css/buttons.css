@@ -49,6 +49,7 @@ nav ul li a:hover {
 nav.shift ul li a {
     position: relative;
     width: fit-content;
+    width: -moz-fit-content;
     pointer-events: auto;
     z-index: 1;
 }

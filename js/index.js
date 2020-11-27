@@ -1,13 +1,16 @@
 $(window).on("load", function() {
+    if (IsIE())
+        $('head').append('<link rel="stylesheet" href="css/optimization-ie.css"></link>');
+
     setTimeout(() => {
         $(".background .image").css({
             transform: 'none',
-            opacity: '100%'
+            opacity: '1'
         });
         setTimeout(() => {
             $(".foreground .image, .triangle .image").css({
                 transform: 'none',
-                opacity: '100%'
+                opacity: '1'
             });
             setTimeout(() => $('header').css({ opacity: 1 }), 1000);
         }, 200);
@@ -71,3 +74,14 @@ $(window).on("load", function() {
         $('.arrow-down').css({ bottom: '-4vw'});
     });
 })
+
+function IsIE()
+{
+    var ua = window.navigator.userAgent;
+    console.log(ua);
+
+    if (ua.indexOf("MSIE") != -1 || ua.indexOf("Edge") != -1 )
+        return true;
+    else
+        return false;
+}
