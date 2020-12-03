@@ -29,10 +29,17 @@ function CreateProjectCell(link, title, content, imglink) {
     return l.children().last();
 }
 
+var converter = new showdown.Converter();
+
 $(window).on("load", function() {
     $.get('https://api.github.com/users/Vlas-Omsk/repos', function( data ) {
         data.forEach(item => {
             var link = item.html_url, title = item.name, content = '', imglink = '', show = true;
+
+            $.get(`https://raw.githubusercontent.com/${item.full_name}/${item.default_branch}/README.md`, function(data) {
+                content = converter.makeHtml(data);
+                console.log(content);
+            });
 
             $.get(`https://raw.githubusercontent.com/${item.full_name}/${item.default_branch}/website-config.json`
                   /*'data:application/json;utf-8,{"show":false,"home_url":"$default","title":"$default","content_html":"$default","image_url":"$default"}'*/, function(data) {

@@ -261,6 +261,7 @@ ul.grid li div.background div.fore .arrow svg {
 ul.grid li div.background div.fore div.cell-content {
     position: absolute;
     align-self: flex-start;
+    word-break: break-all;
     padding: 0 2vw 0 0;
     box-sizing: border-box;
     transform: translateY(-2vw);
