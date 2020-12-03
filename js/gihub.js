@@ -39,39 +39,42 @@ $(window).on("load", function() {
             $.get(`https://raw.githubusercontent.com/${item.full_name}/${item.default_branch}/README.md`, function(data) {
                 content = converter.makeHtml(data);
                 console.log(content);
-            });
 
-            $.get(`https://raw.githubusercontent.com/${item.full_name}/${item.default_branch}/website-config.json`
-                  /*'data:application/json;utf-8,{"show":false,"home_url":"$default","title":"$default","content_html":"$default","image_url":"$default"}'*/, function(data) {
                 
-                data = JSON.parse(data);
-                console.log(data);
-
-                show = data.show == null ? true : data.show;
-                if (show) {
-                    link = data.home_url.replace(/\$default/gi, link);
-                    title = data.title.replace(/\$default/gi, title);
-                    content = data.content_html.replace(/\$default/gi, content);
-                    imglink = data.image_url.replace(/\$default/gi, imglink);
-                }
             })
             .always(function() {
-                if (!show)
-                    return;
+                $.get(`https://raw.githubusercontent.com/${item.full_name}/${item.default_branch}/website-config.json`
+                    /*'data:application/json;utf-8,{"show":false,"home_url":"$default","title":"$default","content_html":"$default","image_url":"$default"}'*/, function(data) {
+                    
+                    data = JSON.parse(data);
+                    console.log(data);
 
-                item = CreateProjectCell(link, title, content, imglink);
-
-                onVisibleSpaceListener(item.find('.slidecontent'),
-                    el=>{
-                        $(el).css({ transform: 'none' });
+                    show = data.show == null ? true : data.show;
+                    if (show) {
+                        link = data.home_url.replace(/\$default/gi, link);
+                        title = data.title.replace(/\$default/gi, title);
+                        content = data.content_html.replace(/\$default/gi, content);
+                        imglink = data.image_url.replace(/\$default/gi, imglink);
                     }
-                );
+                })
+                .always(function() {
+                    if (!show)
+                        return;
 
-                onVisibleSpaceListener(item.find('.background'),
-                    el=>{
-                        $(el).removeClass('background-scale');
-                    }
-                );
+                    item = CreateProjectCell(link, title, content, imglink);
+
+                    onVisibleSpaceListener(item.find('.slidecontent'),
+                        el=>{
+                            $(el).css({ transform: 'none' });
+                        }
+                    );
+
+                    onVisibleSpaceListener(item.find('.background'),
+                        el=>{
+                            $(el).removeClass('background-scale');
+                        }
+                    );
+                });
             });
         });
     });
