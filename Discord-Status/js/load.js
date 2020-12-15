@@ -28,7 +28,7 @@ function InitializeLocalWebSocket() {
 	var open_app = document.getElementById("open_app");
 	
 	socket.onopen = function() {
-		console.log("[LocalWS] Closed");
+		console.log("[LocalWS] Opened");
 		
 		socket.send(JSON.stringify([
 		{
