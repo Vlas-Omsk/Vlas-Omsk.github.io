@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    font-family: HelveticaNowText,Helvetica,Arial,sans-serif;
 }
 
 a {
@@ -29,7 +30,7 @@ h2 {
 
 header {
     position: fixed;
-    z-index: 9999;
+    z-index: 999;
     height: 70px;
     width: 100%;
     
@@ -335,6 +336,114 @@ ul.grid li a:hover div.fore div.cell-content {
 }
 
 
+
+#message {
+    height: 100vh;
+    width: 100%;
+    display: none;
+    opacity: 0;
+    position: absolute;
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+    background-color: rgba(0, 0, 0, 0.85);
+
+    -webkit-transition: opacity .2s ease;
+    transition: opacity .2s ease;
+}
+
+#message div.message-body {
+    width: 440px;
+    background-color: rgb(54,57,63);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.5);
+
+    -webkit-transition: transform .3s ease;
+    transition: transform .3s ease;
+}
+
+#message div.message-body h2 {
+    color: #fff;
+    text-align: center;
+    margin: 10px;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+#message div.message-body div.text {
+    margin-top: 8px;
+    color: #b9bbbe;
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+#message div.message-body div.buttons {
+    display: flex;
+    flex: content;
+    flex-direction: row-reverse;
+    padding: 16px;
+    margin-top: 16px;
+    background-color: #2f3136;
+    border-radius: 0 0 5px 5px;
+}
+
+#message div.message-body div.buttons ul {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#message div.message-body div.buttons ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    width: 50px;
+    color: #fff;
+    margin-left: 10px;
+
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    padding: 2px 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    cursor: pointer;
+    -webkit-transition: background-color .17s ease,color .17s ease;
+    transition: background-color .17s ease,color .17s ease;
+}
+
+.blue_button {
+    background-color: #7289da;
+}
+.blue_button:hover {
+    background-color: #677bc4;
+}
+.blue_button:active {
+    background-color: #5b6eae;
+}
+
+.red_button {
+    background-color: #ef5354;
+}
+.red_button:hover {
+    background-color: #d94849;
+}
+.red_button:active {
+    background-color: #c43e42;
+}
 
 #github-avatar {
     position: relative;

@@ -12,7 +12,6 @@ var listenedElements = [];
 document.addEventListener("DOMContentLoaded", window_onload);
 function window_onload() {
     document.getElementById('parralax').onscroll = function() {
-
         isscrolled = true;
         if (!closed)
         {
