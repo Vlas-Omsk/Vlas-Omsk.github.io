@@ -8,7 +8,8 @@ function PageExists(page)
 	} catch {
 		const pages = [
 			"default",
-			"how_to_use_pictures"
+			"how_to_use_pictures",
+			"why_steam_parameters_are_not_updated"
 		];
 		return pages.includes(page);
 	}

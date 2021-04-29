@@ -20,7 +20,6 @@ body {
 	padding: 5px 10px;
 	margin-bottom: 2px;
 	width: 260px;
-	height: 20px;
 }
 
 .select .background {
@@ -48,6 +47,7 @@ body {
 	color: #b9bbbe;
 	font-size: 16px;
 	line-height: 20px;
+	white-space: pre-line;
 	
 	transition: all 0.125s;
 }
