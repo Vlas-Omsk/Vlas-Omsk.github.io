@@ -4,10 +4,10 @@ function CreateProjectCell(link, title, content, imglink) {
 
     var l = $('#projects .grid').append(
     `<li>
-        <a href=${link}>
+        <div class="cell" onclick="window.open('${link}', '_blank').focus()">
             <style>
                 ul.grid li div.background_style${length + 1}:before { transition-delay: ${column * 50 + 400}ms, ${column * 50 + 400}ms; ${!imglink ? '' : `background-image: url('${imglink}');`} }
-                ul.grid li a div.fore h2 div.slidecontent_time${length + 1} { transition-delay: ${column * 50 + 600}ms; }
+                ul.grid li div.cell div.fore h2 div.slidecontent_time${length + 1} { transition-delay: ${column * 50 + 600}ms; }
             </style>
             <div class="background background_style${length + 1} background-scale">
                 <div class="trim">
@@ -23,7 +23,7 @@ function CreateProjectCell(link, title, content, imglink) {
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </li>`);
     
     return l.children().last();
@@ -38,16 +38,12 @@ $(window).on("load", function() {
 
             $.get(`https://raw.githubusercontent.com/${item.full_name}/${item.default_branch}/README.md`, function(data) {
                 content = converter.makeHtml(data);
-                console.log(content);
-
-                
             })
             .always(function() {
                 $.get(`https://raw.githubusercontent.com/${item.full_name}/${item.default_branch}/website-config.json`
                     /*'data:application/json;utf-8,{"show":false,"home_url":"$default","title":"$default","content_html":"$default","image_url":"$default"}'*/, function(data) {
                     
                     data = JSON.parse(data);
-                    console.log(data);
 
                     show = data.show == null ? true : data.show;
                     if (show) {
