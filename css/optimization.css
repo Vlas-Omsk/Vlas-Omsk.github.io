@@ -1,9 +1,0 @@
-body {
-    min-width: 500px;
-}
-
-@media (min-height: 440px) {
-    .triangle .image {
-        top: -70px;
-    }
-}

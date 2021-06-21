@@ -1,0 +1,92 @@
+@keyframes SmoothMove-01 {
+    0% {
+        top: 0;
+        left: 0;
+    }
+
+    25% {
+        top: -7%;
+        left: -1%;
+    }
+
+    50% {
+        top: -2%;
+        left: 4%;
+    }
+
+    75% {
+        top: 8%;
+        left: 9%;
+    }
+
+    to {
+        top: 2%;
+        left: -8%;
+    }
+}
+
+@keyframes SmoothMove-02 {
+    0% {
+        top: 0;
+        left: 0;
+    }
+
+    25% {
+        top: 0%;
+        left: 6%;
+    }
+
+    50% {
+        top: 4%;
+        left: 10%;
+    }
+
+    75% {
+        top: 5%;
+        left: 3%;
+    }
+
+    to {
+        top: -6%;
+        left: 1%;
+    }
+}
+
+@keyframes SmoothMove-03 {
+    0% {
+        top: 0;
+        left: 0;
+    }
+
+    25% {
+        top: 4.5px;
+        left: -4px;
+    }
+
+    50% {
+        top: 3px;
+        left: 2.5px;
+    }
+
+    75% {
+        top: -1px;
+        left: 4px;
+    }
+
+    to {
+        top: 0;
+        left: 0;
+    }
+}
+
+@keyframes Puls-01 {
+    10% {
+        transform: scale(1.01);
+    }
+    20% {
+        transform: none;
+    }
+    to {
+        transform: none;
+    }
+}

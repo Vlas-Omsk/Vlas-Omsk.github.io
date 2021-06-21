@@ -1,0 +1,22 @@
+@import './mixins.scss';
+
+%tg1 {
+  @include tg(
+    $font-size: 1.3em,
+    $font-weight: 500,
+    $line-height: .99em,
+    $letter-spacing: -.04em
+  )
+}
+
+%tg2 {
+  @extend %tg1;
+  font-size: 3em;
+  line-height: normal;
+}
+
+%tg3 {
+  @extend %tg1;
+  font-size: 6em;
+  line-height: 1.08em;
+}

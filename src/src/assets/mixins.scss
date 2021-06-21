@@ -1,0 +1,37 @@
+@mixin tg(
+  $font-size: 16px,
+  $font-weight: normal,
+  $line-height: normal,
+  $letter-spacing: normal,
+  $font-style: normal
+) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  font-family: HelveticaNowText, Helvetica, Arial, sans-serif;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  font-style: $font-style;
+}
+
+@mixin scrollbar(
+  $color: rgb(210, 210, 210),
+  $background-color: transparent,
+  $size: 3px
+) {
+  scrollbar-color: $color $background-color !important;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: calc(#{$size} + 4px);
+    height: calc(#{$size} + 4px);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgb(210, 210, 210);
+    border-radius: 17%;
+    border: 2px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
