@@ -12,6 +12,8 @@
       class="navbar__hamburger"
       v-model="isHamburgerOpened"
       :isFilled="isFilled"
+      :isInteractiveBackgroundEnabled="isInteractiveBackgroundEnabled"
+      @toggleInteractiveBackground="$emit('toggleInteractiveBackground')"
     />
     <nav class="navbar__wrapper">
       <div class="navbar__logo__wrapper">
@@ -41,12 +43,21 @@
         :isHoverEffectEnabled="activeButton == 0"
         >Home</FilldownButton
       >
-      <FilldownButton
-        class="navbar__button"
-        url="/#projects"
-        :isHoverEffectEnabled="activeButton == 1"
-        >Projects</FilldownButton
-      >
+      <div class="navbar__buttons">
+        <FilldownButton
+          class="navbar__button"
+          style="margin-right: 15px"
+          url="/#projects"
+          :isHoverEffectEnabled="activeButton == 1"
+          >Projects</FilldownButton
+        >
+        <FilldownButton
+          class="navbar__button"
+          :isHoverEffectEnabled="isInteractiveBackgroundEnabled"
+          @click="$emit('toggleInteractiveBackground')"
+          >Background</FilldownButton
+        >
+      </div>
     </nav>
   </header>
 </template>
@@ -63,6 +74,10 @@ export default {
   },
   props: {
     isLoading: {
+      type: Boolean,
+      required: true,
+    },
+    isInteractiveBackgroundEnabled: {
       type: Boolean,
       required: true,
     },
@@ -196,6 +211,9 @@ export default {
   }
   &__button {
     display: none;
+  }
+  &__buttons {
+    display: flex;
   }
   @media screen and (min-width: 768px) {
     &__button {

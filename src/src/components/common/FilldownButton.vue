@@ -2,7 +2,7 @@
   <div class="button__wrapper">
     <div class="button" :class="{'button-hover': isHoverEffectEnabled}">
       <div class="button__background"></div>
-      <a class="button__text" :href="url">
+      <a class="button__text" :href="url" @click="$emit('click', $event)">
         <slot />
       </a>
     </div>
@@ -29,6 +29,7 @@ export default {
 
 .button {
   position: relative;
+  cursor: pointer;
 
   &__background {
     position: absolute;

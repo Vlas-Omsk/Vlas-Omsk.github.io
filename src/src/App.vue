@@ -1,9 +1,14 @@
 <template>
   <div id="app" class="app" ref>
-    <NavBar :isLoading="isLoading" />
+    <NavBar
+      :isLoading="isLoading"
+      :isInteractiveBackgroundEnabled="isInteractiveBackgroundEnabled"
+      @toggleInteractiveBackground="isInteractiveBackgroundEnabled = !isInteractiveBackgroundEnabled"
+    />
     <Background
       :isLoading="isLoading"
       :isLoadingAnimationOver="isLoadingAnimationOver"
+      :isInteractiveBackgroundEnabled="isInteractiveBackgroundEnabled"
     />
     <div ref="sections" class="sections">
       <Projects :projects="projects" :isLoading="isProjectsLoading" />
@@ -45,6 +50,7 @@ export default {
       showdownConverter: null,
       userName: "Vlas-Omsk",
       isProjectsLoading: false,
+      isInteractiveBackgroundEnabled: true,
     };
   },
   methods: {

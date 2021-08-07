@@ -3,7 +3,7 @@
     class="background"
     :class="{
       'background-loading': isLoading,
-      'background-animation': isLoadingAnimationOver,
+      'background-loaded': isLoadingAnimationOver,
     }"
     ref="background"
     id="home"
@@ -97,6 +97,10 @@ export default {
       type: Boolean,
       required: true,
     },
+    isInteractiveBackgroundEnabled: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {
@@ -123,13 +127,27 @@ export default {
       noUpdateBordersPercents: 0.005,
     };
   },
+  watch: {
+    isInteractiveBackgroundEnabled(value) {
+      if (value)
+        this.windowScrollHandler();
+      else
+        for (let i = 0; i < this.layers.length; i++) {
+          const el = this.$refs["layer" + i];
+          if (!el) return;
+          el.style.transform = null;
+        }
+    }
+  },
   methods: {
     windowScrollHandler() {
-      if (
-        this.lastPageYOffset + this.noUpdateBorders < window.pageYOffset ||
-        this.lastPageYOffset - this.noUpdateBorders > window.pageYOffset
-      ) {
-        this.lastPageYOffset = window.pageYOffset;
+      if (!this.isInteractiveBackgroundEnabled || !this.isLoadingAnimationOver)
+        return;
+      // if (
+      //   this.lastPageYOffset + this.noUpdateBorders < window.pageYOffset ||
+      //   this.lastPageYOffset - this.noUpdateBorders > window.pageYOffset
+      // ) {
+      //   this.lastPageYOffset = window.pageYOffset;
         let visible = this.$refs.background.clientHeight - window.pageYOffset;
         const per = visible / this.$refs.background.clientHeight;
         if (visible < 0) return;
@@ -144,9 +162,9 @@ export default {
           } else {
             pad = -(pad * per - pad);
           }
-          el.style.top = pad + "px";
+          el.style.transform = "translateY(" + pad + "px)";
         }
-      }
+      // }
     },
     windowResizeHandler() {
       this.noUpdateBorders = this.noUpdateBordersPercents * window.innerHeight;
@@ -208,8 +226,9 @@ export default {
       }
     }
   }
-  &-animation {
+  &-loaded {
     .layer {
+      transition: none;
       &__layer1 {
         &-1 {
           animation: SmoothMove-01 45s ease-in-out infinite alternate;

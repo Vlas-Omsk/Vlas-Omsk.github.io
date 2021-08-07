@@ -7,6 +7,14 @@
       <a class="hamburger__option" href="/#projects" @click="hideHamburger">
         Projects
       </a>
+      <a
+        class="hamburger__option"
+        :class="{ 'hamburger__option-inactive': !isInteractiveBackgroundEnabled }"
+        style="margin-top: 50px; font-size: 2em; font-weight: 800"
+        @click="$emit('toggleInteractiveBackground')"
+      >
+        Background
+      </a>
     </div>
     <div class="hamburger__button" @click="$emit('input', !value)">
       <svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="0.6px" stroke-linecap="round">
@@ -28,7 +36,11 @@ export default {
     isFilled: {
       type: Boolean,
       required: true
-    }
+    },
+    isInteractiveBackgroundEnabled: {
+      type: Boolean,
+      required: true,
+    },
   },
   methods: {
     hideHamburger() {
@@ -80,6 +92,12 @@ export default {
     @include tg($font-weight: 800, $font-size: 3em);
     color: #eee;
     text-decoration: none;
+    cursor: pointer;
+    transition: color .3s $transition1;
+
+    &-inactive {
+      color: rgba(238, 238, 238, 0.5);
+    }
   }
   &__button {
     position: relative;
