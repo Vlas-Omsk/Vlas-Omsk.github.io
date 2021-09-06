@@ -21,7 +21,7 @@ export default {
   mounted() {
     const slideup = this.$refs.slideup;
     ScrollHandler.AddElement("slideup_" + this.name, slideup, 100);
-    ScrollHandler.AddCallback("slideup_" + this.name, () => {
+    ScrollHandler.AddEnterCallback("slideup_" + this.name, () => {
       slideup.classList.add("slideup-visible");
       ScrollHandler.RemoveElement("slideup_" + this.name);
     });

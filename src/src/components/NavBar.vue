@@ -10,7 +10,8 @@
     <div class="navbar__background"></div>
     <Hamburger
       class="navbar__hamburger"
-      v-model="isHamburgerOpened"
+      :value="isHamburgerOpened"
+      @input="$emit('hamburgerStateChanged', $event)"
       :isFilled="isFilled"
       :isInteractiveBackgroundEnabled="isInteractiveBackgroundEnabled"
       @toggleInteractiveBackground="$emit('toggleInteractiveBackground')"
@@ -40,7 +41,7 @@
       <FilldownButton
         class="navbar__button"
         url="/#home"
-        :isHoverEffectEnabled="activeButton == 0"
+        :isHoverEffectEnabled="currentSection == 'home'"
         >Home</FilldownButton
       >
       <div class="navbar__buttons">
@@ -48,7 +49,7 @@
           class="navbar__button"
           style="margin-right: 15px"
           url="/#projects"
-          :isHoverEffectEnabled="activeButton == 1"
+          :isHoverEffectEnabled="currentSection == 'projects'"
           >Projects</FilldownButton
         >
         <FilldownButton
@@ -81,28 +82,29 @@ export default {
       type: Boolean,
       required: true,
     },
+    isHamburgerOpened: {
+      type: Boolean,
+      required: true,
+    },
+    currentSection: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
-      activeButton: 0,
       isFilled: false,
-      isHamburgerOpened: false,
       state: 0,
     };
   },
-  methods: {
-    toggleHoverEffect(idx) {
-      this.isFilled = idx != 0;
-      if (this.state != 0 && idx == 0) this.state = 0;
-
-      if (this.activeButton != idx) this.activeButton = idx;
-    },
+  watch: {
+    currentSection(value) {
+      this.isFilled = value != 'home';
+    }
   },
   mounted() {
-    ScrollHandler.AddCallback("home", () => this.toggleHoverEffect(0));
-    ScrollHandler.AddCallback("projects", () => this.toggleHoverEffect(1));
-
-    ScrollHandler.AddCallback("projects_fillsection", () => (this.state = 1));
+    ScrollHandler.AddLeaveCallback("projects_fillsection", () => (this.state = 0));
+    ScrollHandler.AddEnterCallback("projects_fillsection", () => (this.state = 1));
   },
 };
 </script>

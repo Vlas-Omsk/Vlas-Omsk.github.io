@@ -3,6 +3,9 @@
     <NavBar
       :isLoading="isLoading"
       :isInteractiveBackgroundEnabled="isInteractiveBackgroundEnabled"
+      :currentSection="currentSection"
+      :isHamburgerOpened="isHamburgerOpened"
+      @hamburgerStateChanged="isHamburgerOpened = $event; updateThemeColor();"
       @toggleInteractiveBackground="isInteractiveBackgroundEnabled = !isInteractiveBackgroundEnabled"
     />
     <Background
@@ -33,6 +36,8 @@ if (!String.prototype.replaceAll) {
   };
 }
 
+const theme_color = document.getElementById("theme_color");
+
 export default {
   name: "App",
   components: {
@@ -51,6 +56,9 @@ export default {
       userName: "Vlas-Omsk",
       isProjectsLoading: false,
       isInteractiveBackgroundEnabled: true,
+      
+      isHamburgerOpened: false,
+      currentSection: "home"
     };
   },
   methods: {
@@ -134,11 +142,27 @@ export default {
         }
       })
     },
+    updateThemeColor(delay) {
+      let color = "#f5f5f5";
+      if (this.currentSection == "home" ||
+        this.isHamburgerOpened == true)
+        color = "#1c1c1c";
+      
+      if (theme_color.content != color) {
+        if (delay)
+          setTimeout(() => (theme_color.content = color), delay);
+        else
+          theme_color.content = color;
+      }
+    }
   },
   created() {
     this.showdownConverter = new showdown.Converter();
   },
   mounted() {
+    ScrollHandler.AddEnterCallback("home", () => { this.currentSection = "home"; this.updateThemeColor(580); });
+    ScrollHandler.AddEnterCallback("projects", () => { this.currentSection = "projects"; this.updateThemeColor(); });
+
     window.addEventListener("load", this.windowLoadHandler);
     window.addEventListener("beforeunload", this.windowBeforeUnloadHandler);
     if (this.useStartAnimation) {

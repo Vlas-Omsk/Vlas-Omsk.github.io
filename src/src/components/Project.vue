@@ -128,7 +128,7 @@ export default {
       bottomContainerRef = this.$refs.bottomContainerRef;
 
     ScrollHandler.AddElement(this.name, projectRef, 100);
-    ScrollHandler.AddCallback(this.name, () => {
+    ScrollHandler.AddEnterCallback(this.name, () => {
       let columnCount = 1;
       if (window.innerWidth >= 768) columnCount = 2;
       if (window.innerWidth >= 1200) columnCount = 3;

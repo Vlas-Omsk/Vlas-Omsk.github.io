@@ -20,23 +20,45 @@ function AddElement(
     elements.push({
       element: el,
       name,
-      callbacks: [],
+      enterCallbacks: [],
+      leaveCallbacks: [],
+      isOnVisibleSpace: false,
       scrPercent,
       scrPx,
     }) - 1
   ];
 }
 
-function AddCallback(name, callback) {
+function AddEnterCallback(name, callback) {
   for (let value of elements)
     if (value.name == name) {
-      value.callbacks.push(callback);
+      value.enterCallbacks.push(callback);
       return value;
     }
   return elements[
     elements.push({
       name,
-      callbacks: [callback],
+      enterCallbacks: [callback],
+      leaveCallbacks: [],
+      isOnVisibleSpace: false,
+      scrPercent: defaultScrPercent,
+      scrPx: defaultScrPx,
+    }) - 1
+  ];
+}
+
+function AddLeaveCallback(name, callback) {
+  for (let value of elements)
+    if (value.name == name) {
+      value.leaveCallbacks.push(callback);
+      return value;
+    }
+  return elements[
+    elements.push({
+      name,
+      enterCallbacks: [],
+      leaveCallbacks: [callback],
+      isOnVisibleSpace: false,
       scrPercent: defaultScrPercent,
       scrPx: defaultScrPx,
     }) - 1
@@ -70,28 +92,30 @@ function StopListen() {
 function isOnVisibleSpace(element, scrPercent, scrPx) {
   var bodyHeight = window.innerHeight;
   var elemRect = element.getBoundingClientRect();
-  var offset = elemRect.top; // - bodyRect.top;
-  //if (offset < 0) return false;
-  if (offset + scrPx > bodyHeight * (scrPercent / 100)) return false;
+  if (elemRect.top + scrPx > bodyHeight * (scrPercent / 100) ||
+    elemRect.top + elemRect.height + scrPx < bodyHeight * (scrPercent / 100)) return false;
   return true;
 }
 
 function UpdateElements() {
   elements.forEach((value) => {
-    if (
-      value.element &&
-      value.callbacks &&
-      isOnVisibleSpace(value.element, value.scrPercent, value.scrPx, value)
-    )
-      value.callbacks.forEach((callback) => {
-        callback();
-      });
+    if (value.element)
+    {
+      const valueIsOnVisibleSpace = isOnVisibleSpace(value.element, value.scrPercent, value.scrPx);
+      
+      if (value.leaveCallbacks && value.isOnVisibleSpace && !valueIsOnVisibleSpace)
+        value.leaveCallbacks.forEach((callback) => callback());
+      if (value.enterCallbacks && !value.isOnVisibleSpace && valueIsOnVisibleSpace)
+        value.enterCallbacks.forEach((callback) => callback());
+      value.isOnVisibleSpace = valueIsOnVisibleSpace;
+    }
   });
 }
 
 export default {
   AddElement,
-  AddCallback,
+  AddEnterCallback,
+  AddLeaveCallback,
   RemoveElement,
   StartListen,
   StopListen,
