@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app" ref>
+  <div id="app" class="app">
     <NavBar
       :isLoading="isLoading"
       :isInteractiveBackgroundEnabled="isInteractiveBackgroundEnabled"

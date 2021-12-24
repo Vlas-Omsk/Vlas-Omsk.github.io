@@ -7,14 +7,18 @@
       <a class="hamburger__option" href="/#projects" @click="hideHamburger">
         Projects
       </a>
-      <a
-        class="hamburger__option"
-        :class="{ 'hamburger__option-inactive': !isInteractiveBackgroundEnabled }"
-        style="margin-top: 50px; font-size: 2em; font-weight: 800"
-        @click="$emit('toggleInteractiveBackground')"
-      >
-        Background
-      </a>
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 50px; font-size: .8em; font-weight: 800">
+        <a class="hamburger__option" href="https://www.cmd5.org">
+          MD5 decrypt
+        </a>
+        <a
+          class="hamburger__option"
+          :class="{ 'hamburger__option-inactive': !isInteractiveBackgroundEnabled }"
+          @click="$emit('toggleInteractiveBackground')"
+        >
+          Background
+        </a>
+      </div>
     </div>
     <div class="hamburger__button" @click="$emit('input', !value)">
       <svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="0.6px" stroke-linecap="round">

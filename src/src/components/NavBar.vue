@@ -38,16 +38,22 @@
           />
         </a>
       </div>
-      <FilldownButton
-        class="navbar__button"
-        url="/#home"
-        :isHoverEffectEnabled="currentSection == 'home'"
-        >Home</FilldownButton
-      >
       <div class="navbar__buttons">
         <FilldownButton
           class="navbar__button"
-          style="margin-right: 15px"
+          url="/#home"
+          :isHoverEffectEnabled="currentSection == 'home'"
+          >Home</FilldownButton
+        >
+        <FilldownButton
+          class="navbar__button"
+          url="https://www.cmd5.org"
+          >md5 decrypt</FilldownButton
+        >
+      </div>
+      <div class="navbar__buttons">
+        <FilldownButton
+          class="navbar__button"
           url="/#projects"
           :isHoverEffectEnabled="currentSection == 'projects'"
           >Projects</FilldownButton
@@ -216,6 +222,9 @@ export default {
   }
   &__buttons {
     display: flex;
+    :not(:last-child) {
+      margin-right: 15px;
+    }
   }
   @media screen and (min-width: 768px) {
     &__button {
