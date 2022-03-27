@@ -13,7 +13,7 @@
       :value="isHamburgerOpened"
       @input="$emit('hamburgerStateChanged', $event)"
       :isFilled="isFilled"
-      :isInteractiveBackgroundEnabled="isInteractiveBackgroundEnabled"
+      :isAnimatedBackgroundEnabled="isAnimatedBackgroundEnabled"
       @toggleInteractiveBackground="$emit('toggleInteractiveBackground')"
     />
     <nav class="navbar__wrapper">
@@ -45,9 +45,7 @@
           :isHoverEffectEnabled="currentSection == 'home'"
           >Home</FilldownButton
         >
-        <FilldownButton
-          class="navbar__button"
-          url="https://www.cmd5.org"
+        <FilldownButton class="navbar__button" url="https://www.cmd5.org"
           >md5 decrypt</FilldownButton
         >
       </div>
@@ -60,7 +58,7 @@
         >
         <FilldownButton
           class="navbar__button"
-          :isHoverEffectEnabled="isInteractiveBackgroundEnabled"
+          :isHoverEffectEnabled="isAnimatedBackgroundEnabled"
           @click="$emit('toggleInteractiveBackground')"
           >Background</FilldownButton
         >
@@ -84,7 +82,7 @@ export default {
       type: Boolean,
       required: true,
     },
-    isInteractiveBackgroundEnabled: {
+    isAnimatedBackgroundEnabled: {
       type: Boolean,
       required: true,
     },
@@ -105,12 +103,18 @@ export default {
   },
   watch: {
     currentSection(value) {
-      this.isFilled = value != 'home';
-    }
+      this.isFilled = value != "home";
+    },
   },
   mounted() {
-    ScrollHandler.AddLeaveCallback("projects_fillsection", () => (this.state = 0));
-    ScrollHandler.AddEnterCallback("projects_fillsection", () => (this.state = 1));
+    ScrollHandler.AddLeaveCallback(
+      "projects_fillsection",
+      () => (this.state = 0)
+    );
+    ScrollHandler.AddEnterCallback(
+      "projects_fillsection",
+      () => (this.state = 1)
+    );
   },
 };
 </script>

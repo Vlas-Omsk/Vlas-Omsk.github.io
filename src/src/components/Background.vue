@@ -97,7 +97,7 @@ export default {
       type: Boolean,
       required: true,
     },
-    isInteractiveBackgroundEnabled: {
+    isAnimatedBackgroundEnabled: {
       type: Boolean,
       required: true,
     },
@@ -123,48 +123,57 @@ export default {
         },
       ],
       lastPageYOffset: 0,
-      noUpdateBorders: 0,
-      noUpdateBordersPercents: 0.005,
+      animationId: null,
     };
   },
   watch: {
-    isInteractiveBackgroundEnabled(value) {
-      if (value)
-        this.windowScrollHandler();
-      else
+    isAnimatedBackgroundEnabled(value) {
+      if (!value) {
+        this.cancelNextFrame();
         for (let i = 0; i < this.layers.length; i++) {
           const el = this.$refs["layer" + i];
           if (!el) return;
           el.style.transform = null;
         }
-    }
+      } else {
+        this.requestNextFrame();
+      }
+    },
   },
   methods: {
-    windowScrollHandler() {
-      if (!this.isInteractiveBackgroundEnabled || !this.isLoadingAnimationOver)
-        return;
-      // if (
-      //   this.lastPageYOffset + this.noUpdateBorders < window.pageYOffset ||
-      //   this.lastPageYOffset - this.noUpdateBorders > window.pageYOffset
-      // ) {
-      //   this.lastPageYOffset = window.pageYOffset;
-        let visible = this.$refs.background.clientHeight - window.pageYOffset;
-        const per = visible / this.$refs.background.clientHeight;
-        if (visible < 0) return;
-        for (let i = 0; i < this.layers.length; i++) {
-          const el = this.$refs["layer" + i];
-          if (!el) return;
-          const layer = this.layers[i];
-          let pad = el.clientHeight - el.clientHeight / layer.scale;
-          if (layer.inverted == true) {
-            pad = pad * per - pad / 2;
-            //el.style.transform = "scale(" + layer.scale + ")";
-          } else {
-            pad = -(pad * per - pad);
-          }
-          el.style.transform = "translateY(" + pad + "px)";
+    cancelNextFrame() {
+      window.cancelAnimationFrame(this.animationId);
+    },
+    requestNextFrame() {
+      this.animationId = window.requestAnimationFrame(this.scrollAnimation);
+    },
+    scrollAnimation() {
+      if (
+        !this.isAnimatedBackgroundEnabled ||
+        !this.isLoadingAnimationOver ||
+        this.lastPageYOffset == window.pageYOffset
+      )
+        return this.requestNextFrame();
+
+      this.lastPageYOffset = window.pageYOffset;
+
+      let visible = this.$refs.background.clientHeight - window.pageYOffset;
+      const per = visible / this.$refs.background.clientHeight;
+      if (visible < 0) return this.requestNextFrame();
+      for (let i = 0; i < this.layers.length; i++) {
+        const el = this.$refs["layer" + i];
+        if (!el) return this.requestNextFrame();
+        const layer = this.layers[i];
+        let pad = el.clientHeight - el.clientHeight / layer.scale;
+        if (layer.inverted == true) {
+          pad = pad * per - pad / 2;
+        } else {
+          pad = -(pad * per - pad);
         }
-      // }
+        el.style.transform = "translateY(" + pad + "px)";
+      }
+
+      this.requestNextFrame();
     },
     windowResizeHandler() {
       this.noUpdateBorders = this.noUpdateBordersPercents * window.innerHeight;
@@ -182,15 +191,14 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener("scroll", this.windowScrollHandler);
-    this.windowScrollHandler();
+    this.requestNextFrame();
     window.addEventListener("resize", this.windowResizeHandler);
     this.windowResizeHandler();
 
     ScrollHandler.AddElement("home", this.$refs.background);
   },
   destroyed() {
-    window.removeEventListener("scroll", this.windowScrollHandler);
+    this.cancelNextFrame();
     window.removeEventListener("resize", this.windowResizeHandler);
 
     ScrollHandler.RemoveElement("home");
@@ -282,8 +290,8 @@ export default {
   }
   &__layer3 {
     &-1 {
-      transform: scale(0.5);
       overflow: hidden;
+      transform: scale(0.5);
     }
   }
   &__foreground,

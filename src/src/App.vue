@@ -2,21 +2,29 @@
   <div id="app" class="app">
     <NavBar
       :isLoading="isLoading"
-      :isInteractiveBackgroundEnabled="isInteractiveBackgroundEnabled"
+      :isAnimatedBackgroundEnabled="isAnimatedBackgroundEnabled"
       :currentSection="currentSection"
       :isHamburgerOpened="isHamburgerOpened"
-      @hamburgerStateChanged="isHamburgerOpened = $event; updateThemeColor();"
-      @toggleInteractiveBackground="isInteractiveBackgroundEnabled = !isInteractiveBackgroundEnabled"
+      @hamburgerStateChanged="
+        isHamburgerOpened = $event;
+        updateThemeColor();
+      "
+      @toggleInteractiveBackground="
+        isAnimatedBackgroundEnabled = !isAnimatedBackgroundEnabled
+      "
     />
     <Background
       :isLoading="isLoading"
       :isLoadingAnimationOver="isLoadingAnimationOver"
-      :isInteractiveBackgroundEnabled="isInteractiveBackgroundEnabled"
+      :isAnimatedBackgroundEnabled="isAnimatedBackgroundEnabled"
     />
     <div ref="sections" class="sections">
       <Projects :projects="projects" :isLoading="isProjectsLoading" />
     </div>
-    <div class="plug" :class="{ 'plug-unloading': isUnloading }"></div>
+    <div
+      class="plug"
+      :class="{ 'plug-active': isUnloading || isProjectsLoading }"
+    ></div>
   </div>
 </template>
 
@@ -37,6 +45,7 @@ if (!String.prototype.replaceAll) {
 }
 
 const theme_color = document.getElementById("theme_color");
+const useStartAnimation = true;
 
 export default {
   name: "App",
@@ -51,26 +60,25 @@ export default {
       isLoading: true,
       isUnloading: false,
       isLoadingAnimationOver: false,
-      useStartAnimation: true,
       showdownConverter: null,
       userName: "Vlas-Omsk",
       isProjectsLoading: false,
-      isInteractiveBackgroundEnabled: true,
-      
+      isAnimatedBackgroundEnabled: true,
+
       isHamburgerOpened: false,
-      currentSection: "home"
+      currentSection: "home",
     };
   },
   methods: {
     windowLoadHandler() {
-      if (this.useStartAnimation)
+      if (useStartAnimation)
         setTimeout(() => {
           this.isLoading = false;
           setTimeout(() => {
             document.body.parentElement.style.overflowY = "auto";
             this.$refs.sections.style.top = 0;
             setTimeout(ScrollHandler.UpdateElements, 100);
-            setTimeout(() => (this.isLoadingAnimationOver = true), 1200);
+            this.isLoadingAnimationOver = true;
           }, 1000);
         }, 1000);
       else {
@@ -144,29 +152,32 @@ export default {
     },
     updateThemeColor(delay) {
       let color = "#f5f5f5";
-      if (this.currentSection == "home" ||
-        this.isHamburgerOpened == true)
+      if (this.currentSection == "home" || this.isHamburgerOpened == true)
         color = "#1c1c1c";
-      
+
       if (theme_color.content != color) {
-        if (delay)
-          setTimeout(() => (theme_color.content = color), delay);
-        else
-          theme_color.content = color;
+        if (delay) setTimeout(() => (theme_color.content = color), delay);
+        else theme_color.content = color;
       }
-    }
+    },
   },
   created() {
     this.showdownConverter = new showdown.Converter();
   },
   mounted() {
-    ScrollHandler.AddEnterCallback("home", () => { this.currentSection = "home"; this.updateThemeColor(580); });
-    ScrollHandler.AddEnterCallback("projects", () => { this.currentSection = "projects"; this.updateThemeColor(); });
+    ScrollHandler.AddEnterCallback("home", () => {
+      this.currentSection = "home";
+      this.updateThemeColor(580);
+    });
+    ScrollHandler.AddEnterCallback("projects", () => {
+      this.currentSection = "projects";
+      this.updateThemeColor();
+    });
 
     window.addEventListener("load", this.windowLoadHandler);
     window.addEventListener("beforeunload", this.windowBeforeUnloadHandler);
-    if (this.useStartAnimation) {
-      let elemTop = this.$refs.sections.getBoundingClientRect().top;
+    if (useStartAnimation) {
+      const elemTop = this.$refs.sections.getBoundingClientRect().top;
       if (elemTop < window.innerHeight)
         this.$refs.sections.style.top = window.innerHeight - elemTop + 1 + "px";
     }
@@ -227,7 +238,9 @@ code {
   top: 0;
   left: 0;
   z-index: 999;
-  &-unloading {
+  transition: top $transition2;
+
+  &-active {
     opacity: 1;
   }
 }

@@ -1,5 +1,8 @@
 <template>
-  <div class="hamburger" :class="{'hamburger-opened': value, 'hamburger-fill': isFilled}">
+  <div
+    class="hamburger"
+    :class="{ 'hamburger-opened': value, 'hamburger-fill': isFilled }"
+  >
     <div class="hamburger__overflow">
       <a class="hamburger__option" href="/#home" @click="hideHamburger">
         Home
@@ -7,13 +10,24 @@
       <a class="hamburger__option" href="/#projects" @click="hideHamburger">
         Projects
       </a>
-      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 50px; font-size: .8em; font-weight: 800">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 50px;
+          font-size: 0.8em;
+          font-weight: 800;
+        "
+      >
         <a class="hamburger__option" href="https://www.cmd5.org">
           MD5 decrypt
         </a>
         <a
           class="hamburger__option"
-          :class="{ 'hamburger__option-inactive': !isInteractiveBackgroundEnabled }"
+          :class="{
+            'hamburger__option-inactive': !isAnimatedBackgroundEnabled,
+          }"
           @click="$emit('toggleInteractiveBackground')"
         >
           Background
@@ -21,10 +35,15 @@
       </div>
     </div>
     <div class="hamburger__button" @click="$emit('input', !value)">
-      <svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="0.6px" stroke-linecap="round">
-        <path class="hamburger__button__line1" d="M1,3 9,3z"/>
-        <path class="hamburger__button__line2" d="M1,5 9,5z"/>
-        <path class="hamburger__button__line3" d="M1,7 9,7z"/>
+      <svg
+        viewBox="0 0 10 10"
+        stroke="currentColor"
+        stroke-width="0.6px"
+        stroke-linecap="round"
+      >
+        <path class="hamburger__button__line1" d="M1,3 9,3z" />
+        <path class="hamburger__button__line2" d="M1,5 9,5z" />
+        <path class="hamburger__button__line3" d="M1,7 9,7z" />
       </svg>
     </div>
   </div>
@@ -35,28 +54,28 @@ export default {
   props: {
     value: {
       type: Boolean,
-      required: true
+      required: true,
     },
     isFilled: {
       type: Boolean,
-      required: true
+      required: true,
     },
-    isInteractiveBackgroundEnabled: {
+    isAnimatedBackgroundEnabled: {
       type: Boolean,
       required: true,
     },
   },
   methods: {
     hideHamburger() {
-      this.$emit('input', false);
-    }
-  }
-}
+      this.$emit("input", false);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/vars.scss';
-@import '../assets/mixins.scss';
+@import "../assets/vars.scss";
+@import "../assets/mixins.scss";
 
 .hamburger {
   display: flex;
@@ -75,13 +94,13 @@ export default {
     .hamburger {
       &__button {
         &__line1 {
-          d: path("M2,2 8,8z")
+          d: path("M2,2 8,8z");
         }
         &__line2 {
-          d: path("M2,2 8,8z")
+          d: path("M2,2 8,8z");
         }
         &__line3 {
-          d: path("M2,8 8,2z")
+          d: path("M2,8 8,2z");
         }
       }
       &__button {
@@ -97,7 +116,7 @@ export default {
     color: #eee;
     text-decoration: none;
     cursor: pointer;
-    transition: color .3s $transition1;
+    transition: color 0.3s $transition1;
 
     &-inactive {
       color: rgba(238, 238, 238, 0.5);
@@ -113,7 +132,7 @@ export default {
     &__line1,
     &__line2,
     &__line3 {
-      transition: all .6s $transition1;
+      transition: all 0.6s $transition1;
     }
   }
   &__overflow {
@@ -129,7 +148,7 @@ export default {
     transform: translateX(-100%);
     background-color: rgba($color: #000000, $alpha: 0.9);
     backdrop-filter: blur(10px);
-    transition: transform .6s $transition1;
+    transition: transform 0.6s $transition1;
   }
 }
 </style>
